@@ -3,6 +3,8 @@ kind: CronJob
 metadata:
   name: my-cronjob
   namespace: mateapp
+  labels:
+    app: my-cronjob
 spec:
   schedule: "*/4 * * * *"
   concurrencyPolicy: Allow
@@ -16,7 +18,7 @@ spec:
           containers:
           - name: my-cronjob-container
             image: busyboxplus:curl
-            command: ["sh", "-c", "curl http://todoapp-service.mateapp.svc.cluster.local:80/api/health && sleep 5"]
+            command: ["sh", "-c", "curl http://todoapp-service.mateapp.svc.cluster.local:80/api/health"]
             resources:
               limits:
                 memory: "64Mi"
